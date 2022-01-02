@@ -1,0 +1,10 @@
+footer {
+    height: 80px;
+    border-top: 1px solid black;
+    border-radius: 4px;
+}
+
+.home > ul {
+    width: 150px;
+    margin: 0 auto;
+}
