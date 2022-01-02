@@ -1,18 +1,18 @@
 import React from "react";
 import * as Yup from "yup";
-import { nameSchema} from "../../../utils/validationSchemas";
+import {nameSchema} from "../../../utils/validationSchemas";
 import {Formik} from "formik";
 import {useHistory} from "react-router-dom";
 import {SubmitButton} from "../../../components/SubmitButton";
+import {addClientAPI} from "../../../api";
 
 export const AddClient = () => {
     let history = useHistory();
 
-    const handleSubmit = (values, {setSubmitting}) => {
-        setTimeout(() => {
-            setSubmitting(false);
-            history.push('my-account');
-        }, 400);
+    const handleSubmit = async (values, {setSubmitting}) => {
+        const res = await addClientAPI();
+        setSubmitting(false);
+        history.push('my-account');
     }
 
     return <div>

@@ -4,10 +4,17 @@ import {Formik} from "formik";
 import * as Yup from "yup";
 import {emailSchema} from "../../utils/validationSchemas";
 import {SubmitButton} from "../../components/SubmitButton";
+import {forgotPasswordAPI} from "../../api";
 
 
 export const ForgotPassword = () => {
     const [isReset, setIsReset] = useState(false);
+
+    const handleSubmit = async (values, {setSubmitting}) => {
+        const res = await forgotPasswordAPI(values.email)
+        setSubmitting(false);
+        setIsReset(true);
+    }
 
     return (
         <div>
@@ -18,13 +25,7 @@ export const ForgotPassword = () => {
                     validationSchema={Yup.object({
                         email: emailSchema,
                     })}
-                    onSubmit={(values, {setSubmitting}) => {
-                        setTimeout(() => {
-                            alert(JSON.stringify(values, null, 2));
-                            setSubmitting(false);
-                            setIsReset(true);
-                        }, 400);
-                    }}
+                    onSubmit={handleSubmit}
                 >
                     {({
                           values,

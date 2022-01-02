@@ -6,6 +6,7 @@ import {emailSchema, passwordSchema} from "../../utils/validationSchemas";
 import {useAuth} from "../../store";
 import {useHistory, useLocation} from "react-router-dom";
 import {SubmitButton} from "../../components/SubmitButton";
+import {loginAPI} from "../../api";
 
 
 export const Login = () => {
@@ -14,13 +15,14 @@ export const Login = () => {
     let location = useLocation();
     let {from} = location.state || {from: {pathname: "/my-account"}};
 
-    const handleSubmit = (values, {setSubmitting}) => {
-        setTimeout(() => {
-            setSubmitting(false);
-            auth.signin(() => {
-                history.replace(from);
-            });
-        }, 400);
+    const handleSubmit = async (values, {setSubmitting}) => {
+        const res = await loginAPI(values.email, values.password)
+
+        setSubmitting(false);
+        auth.signin(() => {
+            history.replace(from);
+        });
+
     }
 
 

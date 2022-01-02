@@ -4,15 +4,15 @@ import * as Yup from "yup";
 import {newPasswordSchema} from "../../../utils/validationSchemas";
 import {useHistory} from "react-router-dom";
 import {SubmitButton} from "../../../components/SubmitButton";
+import {changePasswordAPI} from "../../../api";
 
 export const ChangePassword = () => {
     let history = useHistory();
 
-    const handleSubmit = (values, {setSubmitting}) => {
-        setTimeout(() => {
-            setSubmitting(false);
-            history.push('/my-account');
-        }, 400);
+    const handleSubmit = async (values, {setSubmitting}) => {
+        const res = await changePasswordAPI(values.password)
+        setSubmitting(false);
+        history.push('/my-account');
     }
 
     return <div>
