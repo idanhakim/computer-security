@@ -11,21 +11,21 @@ const apiReq = (method, params) => {
 }
 
 export const loginAPI = async (email, password) => {
-
+    return true;
 }
 
 export const registerAPI = async (email, password, name) => {
-
+    return true;
 }
 
 export const forgotPasswordAPI = async (email) => {
-
+    return true;
 }
 
 export const changePasswordAPI = async (password) => {
-
+    return true;
 }
 
 export const addClientAPI = async () => {
-
+    return true;
 }
