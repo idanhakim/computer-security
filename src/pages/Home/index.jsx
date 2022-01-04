@@ -8,7 +8,7 @@ export const Home = ()=>{
             <h2>Home</h2>
             <h3>Authors:</h3>
             <ul>
-                <li>Idan Hakim.</li>
+                <li>Idan Hakim</li>
                 <li>Oleg Rudoy.</li>
                 <li>Yafit Fridman.</li>
                 <li>Dor Nakash.</li>
