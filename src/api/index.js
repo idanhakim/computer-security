@@ -3,14 +3,19 @@ import axios from "axios";
 const BASE_URL = "http://127.0.0.1:8000/";
 
 const apiReq = async (params, route, method = 'post') => {
-    console.log('params = ', params)
-    const res = await axios({
-        method,
-        url: BASE_URL + route,
-        data: params
-    })
-    console.log('res = ', res)
-    return res;
+
+    try {
+        console.log('params = ', params)
+        const res = await axios({
+            method,
+            url: BASE_URL + route,
+            data: params
+        })
+        console.log('res = ', res)
+        return res;
+    } catch (e) {
+        alert(`NETWORK ERROR: ${e.message}`)
+    }
 }
 
 export const loginAPI = async (userName, password) => {
