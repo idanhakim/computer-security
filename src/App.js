@@ -11,6 +11,7 @@ import {ForgotPassword} from "./pages/ForgotPassword";
 import {Register} from "./pages/Register";
 import {ProvideAuth} from "./store";
 import {MyAccount} from "./pages/MyAccount";
+import {ResetPassword} from "./pages/ResetPassword";
 
 function App() {
     return (
@@ -33,6 +34,9 @@ function App() {
                         </Route>
                         <Route path="/my-account/">
                             <MyAccount/>
+                        </Route>
+                        <Route path="/reset-password/:token">
+                            <ResetPassword/>
                         </Route>
                     </Switch>
                 </main>

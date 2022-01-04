@@ -51,3 +51,14 @@ export const addClientAPI = async (firstName, lastName, email) => {
     const res = await apiReq({email, first_Name: firstName, last_name: firstName}, 'menu/add_customer/')
     return !!res.data.Success ? {isAuthenticated: true} : {isAuthenticated: false, errorMsg: res?.data?.Fail ?? 'error'}
 }
+
+export const verifyResetPasswordTokenAPI = async (token) => {
+    const res = await apiReq({verify: token}, 'verify/')
+    return !!res.data.Success ? {isAuthenticated: true} : {isAuthenticated: false, errorMsg: res?.data?.Fail ?? 'error'}
+}
+
+export const resetPasswordAPI = async (password) => {
+    const res = await apiReq({new_password: password}, 'forgot_pass_change_pass/')
+    return !!res.data.Success ? {isAuthenticated: true} : {isAuthenticated: false, errorMsg: res?.data?.Fail ?? 'error'}
+}
+
