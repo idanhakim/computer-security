@@ -17,11 +17,9 @@ const fakeAuth = {
 export const useProvideAuth = () => {
     const [user, setUser] = useState(null);
 
-    const signin = cb => {
-        return fakeAuth.signin(() => {
-            setUser("user");
-            cb();
-        });
+    const signin = (userName, cb) => {
+        setUser(userName);
+        cb();
     };
 
     const signout = cb => {

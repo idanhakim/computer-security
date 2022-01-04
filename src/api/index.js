@@ -1,31 +1,48 @@
 import axios from "axios";
 
-const BASE_URL = "";
+const BASE_URL = "http://127.0.0.1:8000/";
 
-const apiReq = (method, params) => {
-    return axios({
+const apiReq = async (params, route, method = 'post') => {
+    console.log('params = ', params)
+    const res = await axios({
         method,
-        url: BASE_URL,
+        url: BASE_URL + route,
         data: params
     })
+    console.log('res = ', res)
+    return res;
 }
 
-export const loginAPI = async (email, password) => {
-    return true;
+export const loginAPI = async (userName, password) => {
+    const params = {
+        username: userName,
+        password
+    }
+    const res = await apiReq(params, 'login/')
+    return !!res.data.Success ? {isAuthenticated: true} : {isAuthenticated: false, errorMsg: res?.data?.Fail ?? 'error'}
 }
 
-export const registerAPI = async (email, password, name) => {
-    return true;
+export const registerAPI = async (email, password, userName) => {
+    const params = {
+        username: userName,
+        password,
+        email
+    }
+    const res = await apiReq(params, 'register/')
+    return !!res.data.Success ? {isAuthenticated: true} : {isAuthenticated: false, errorMsg: res?.data?.Fail ?? 'error'}
 }
 
-export const forgotPasswordAPI = async (email) => {
-    return true;
+export const forgotPasswordAPI = async (userName) => {
+    const res = await apiReq({username: userName}, 'forgot_pass/')
+    return !!res.data.Success ? {isAuthenticated: true} : {isAuthenticated: false, errorMsg: res?.data?.Fail ?? 'error'}
 }
 
-export const changePasswordAPI = async (password) => {
-    return true;
+export const changePasswordAPI = async (password, newPassword) => {
+    const res = await apiReq({password, new_password: newPassword}, 'change_pass/')
+    return !!res.data.Success ? {isAuthenticated: true} : {isAuthenticated: false, errorMsg: res?.data?.Fail ?? 'error'}
 }
 
-export const addClientAPI = async () => {
-    return true;
+export const addClientAPI = async (firstName, lastName, email) => {
+    const res = await apiReq({email, first_Name: firstName, last_name: firstName}, 'menu/add_customer/')
+    return !!res.data.Success ? {isAuthenticated: true} : {isAuthenticated: false, errorMsg: res?.data?.Fail ?? 'error'}
 }

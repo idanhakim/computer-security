@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.css';
 import {Formik} from "formik";
 import * as Yup from "yup";
-import {emailSchema, nameSchema, newPasswordSchema} from "../../utils/validationSchemas";
+import {emailSchema, newPasswordSchema, userNameSchema} from "../../utils/validationSchemas";
 import {useAuth} from "../../store";
 import {useHistory, useLocation} from "react-router-dom";
 import {SubmitButton} from "../../components/SubmitButton";
@@ -16,11 +16,15 @@ export const Register = () => {
     let {from} = location.state || {from: {pathname: "/my-account"}};
 
     const handleSubmit = async (values, {setSubmitting}) => {
-        const res = await registerAPI(values.email, values.password, values.name)
+        const {isAuthenticated, errorMsg} = await registerAPI(values.email,values.password, values.userName)
         setSubmitting(false);
-        auth.signin(() => {
-            history.replace(from);
-        });
+        if (isAuthenticated) {
+            auth.signin(values.userName, () => {
+                history.replace(from);
+            });
+        } else {
+            alert(JSON.stringify(errorMsg, null, 2))
+        }
     }
 
     return (
@@ -28,9 +32,9 @@ export const Register = () => {
             <h2>Register</h2>
 
             <Formik
-                initialValues={{name: "", email: '', password: ''}}
+                initialValues={{userName: "", email: '', password: ''}}
                 validationSchema={Yup.object({
-                    name: nameSchema,
+                    userName: userNameSchema,
                     email: emailSchema,
                     password: newPasswordSchema,
                 })}
@@ -49,14 +53,14 @@ export const Register = () => {
                     <form onSubmit={handleSubmit}>
                         <div className="input-wrapper">
                             <input
-                                type="name"
-                                name="name"
+                                type="text"
+                                name="userName"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.name}
-                                placeholder={'name'}
+                                value={values.userName}
+                                placeholder={'user name'}
                             />
-                            {errors.name && touched.name && errors.name}
+                            {errors.userName && touched.userName && errors.userName}
                         </div>
 
                         <div className="input-wrapper">

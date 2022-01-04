@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './styles.css';
 import {Formik} from "formik";
 import * as Yup from "yup";
-import {emailSchema} from "../../utils/validationSchemas";
+import {emailSchema, userNameSchema} from "../../utils/validationSchemas";
 import {SubmitButton} from "../../components/SubmitButton";
 import {forgotPasswordAPI} from "../../api";
 
@@ -11,9 +11,13 @@ export const ForgotPassword = () => {
     const [isReset, setIsReset] = useState(false);
 
     const handleSubmit = async (values, {setSubmitting}) => {
-        const res = await forgotPasswordAPI(values.email)
+        const {isAuthenticated, errorMsg} = await forgotPasswordAPI(values.userName)
         setSubmitting(false);
-        setIsReset(true);
+        if (isAuthenticated) {
+            setIsReset(true);
+        } else {
+            alert(JSON.stringify(errorMsg, null, 2))
+        }
     }
 
     return (
@@ -21,9 +25,9 @@ export const ForgotPassword = () => {
             <h2>Forgot Password</h2>
             {!isReset ?
                 <Formik
-                    initialValues={{email: ''}}
+                    initialValues={{userName: ''}}
                     validationSchema={Yup.object({
-                        email: emailSchema,
+                        userName: userNameSchema,
                     })}
                     onSubmit={handleSubmit}
                 >
@@ -40,14 +44,14 @@ export const ForgotPassword = () => {
                         <form onSubmit={handleSubmit}>
                             <div className="input-wrapper">
                                 <input
-                                    type="email"
-                                    name="email"
+                                    type="text"
+                                    name="userName"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    value={values.email}
-                                    placeholder={'email'}
+                                    value={values.userName}
+                                    placeholder={'user name'}
                                 />
-                                {errors.email && touched.email && errors.email}
+                                {errors.userName && touched.userName && errors.userName}
                             </div>
 
                             <SubmitButton disabled={isSubmitting} text={'Reset'}/>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './styles.css';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
@@ -16,15 +16,16 @@ export const Login = () => {
     let {from} = location.state || {from: {pathname: "/my-account"}};
 
     const handleSubmit = async (values, {setSubmitting}) => {
-        const res = await loginAPI(values.email, values.password)
-
+        const {isAuthenticated, errorMsg} = await loginAPI(values.userName, values.password)
         setSubmitting(false);
-        auth.signin(() => {
-            history.replace(from);
-        });
-
+        if (isAuthenticated) {
+            auth.signin(values.userName, () => {
+                history.replace(from);
+            });
+        } else {
+            alert(JSON.stringify(errorMsg, null, 2))
+        }
     }
-
 
     return (
         <div>
@@ -73,7 +74,6 @@ export const Login = () => {
                         </div>
 
                         <SubmitButton disabled={isSubmitting} text={'login'}/>
-
                     </form>
                 )}
             </Formik>
