@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.css';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import {emailSchema, passwordSchema} from "../../utils/validationSchemas";
+import {emailSchema, passwordSchema, userNameSchema} from "../../utils/validationSchemas";
 import {useAuth} from "../../store";
 import {useHistory, useLocation} from "react-router-dom";
 import {SubmitButton} from "../../components/SubmitButton";
@@ -30,9 +30,9 @@ export const Login = () => {
         <div>
             <h2>Login</h2>
             <Formik
-                initialValues={{email: '', password: ''}}
+                initialValues={{userName: '', password: ''}}
                 validationSchema={Yup.object({
-                    email: emailSchema,
+                    userName: userNameSchema,
                     password: passwordSchema,
                 })}
                 onSubmit={handleSubmit}
@@ -50,14 +50,14 @@ export const Login = () => {
                     <form onSubmit={handleSubmit}>
                         <div className="input-wrapper">
                             <input
-                                type="email"
-                                name="email"
+                                type="text"
+                                name="userName"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.email}
-                                placeholder={'email'}
+                                value={values.userName}
+                                placeholder={'user name'}
                             />
-                            {errors.email && touched.email && errors.email}
+                            {errors.userName && touched.userName && errors.userName}
                         </div>
 
                         <div className="input-wrapper">

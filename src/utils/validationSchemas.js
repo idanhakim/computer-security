@@ -12,6 +12,9 @@ export const emailSchema = Yup.string()
     .email(EMAIL_VALIDATION_MSG)
     .required(REQUIRED_FIELD_VALIDATION_MSG);
 
+export const userNameSchema = Yup.string()
+    .required(REQUIRED_FIELD_VALIDATION_MSG);
+
 export const passwordSchema = Yup.string().required(
     REQUIRED_FIELD_VALIDATION_MSG
 );
