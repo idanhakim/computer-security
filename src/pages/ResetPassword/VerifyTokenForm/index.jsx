@@ -1,23 +1,16 @@
-import React, {useState} from 'react';
-import './styles.css';
-import {Formik} from "formik";
+import React from "react";
 import * as Yup from "yup";
-import {emailSchema, userNameSchema} from "../../utils/validationSchemas";
-import {SubmitButton} from "../../components/SubmitButton";
-import {forgotPasswordAPI} from "../../api";
-import {useHistory} from "react-router-dom";
+import {tokenSchema} from "../../../utils/validationSchemas";
+import {SubmitButton} from "../../../components/SubmitButton";
+import {Formik} from "formik";
+import {verifyResetPasswordTokenAPI} from "../../../api";
 
-
-export const ForgotPassword = () => {
-
-
-    let history = useHistory();
-
+export const VerifyTokenForm = ({onSuccess}) => {
     const handleSubmit = async (values, {setSubmitting}) => {
-        const {isAuthenticated, errorMsg} = await forgotPasswordAPI(values.userName)
+        const {isAuthenticated, errorMsg} = await verifyResetPasswordTokenAPI(values.token);
         setSubmitting(false);
         if (isAuthenticated) {
-            history.push('/reset-password/');
+            onSuccess();
         } else {
             alert(JSON.stringify(errorMsg, null, 2))
         }
@@ -25,11 +18,11 @@ export const ForgotPassword = () => {
 
     return (
         <div>
-            <h2>Forgot Password</h2>
+            <h2>Please enter verify token:</h2>
             <Formik
-                initialValues={{userName: ''}}
+                initialValues={{token: ''}}
                 validationSchema={Yup.object({
-                    userName: userNameSchema,
+                    token: tokenSchema,
                 })}
                 onSubmit={handleSubmit}
             >
@@ -47,21 +40,21 @@ export const ForgotPassword = () => {
                         <div className="input-wrapper">
                             <input
                                 type="text"
-                                name="userName"
+                                name="token"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.userName}
-                                placeholder={'user name'}
+                                value={values.token}
+                                placeholder={'token'}
                             />
-                            {errors.userName && touched.userName && errors.userName}
+                            {errors.token && touched.token && errors.token}
                         </div>
 
-                        <SubmitButton disabled={isSubmitting} text={'Reset'}/>
+                        <SubmitButton disabled={isSubmitting} text={'Verify'}/>
+
                     </form>
                 )}
             </Formik>
-            }
-
         </div>
     );
+
 }

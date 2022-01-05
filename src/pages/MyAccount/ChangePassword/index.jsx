@@ -24,8 +24,8 @@ export const ChangePassword = () => {
         <Formik
             initialValues={{password: '', newPassword: ''}}
             validationSchema={Yup.object({
-                password: newPasswordSchema,
-                newPassword: newPasswordSchema,
+                password: passwordSchema,
+                newPassword: passwordSchema,
             })}
             onSubmit={handleSubmit}
         >

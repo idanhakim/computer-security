@@ -8,6 +8,9 @@ export const EMAIL_VALIDATION_MSG = 'Invalid email address';
 export const MINIMUM_PHONE_NUMBER = 5;
 export const MINIMUM_FIVE_VALIDATION_TEXT = 'Please enter at least 5 digits';
 
+export const tokenSchema = Yup.string()
+    .required(REQUIRED_FIELD_VALIDATION_MSG);
+
 export const emailSchema = Yup.string()
     .email(EMAIL_VALIDATION_MSG)
     .required(REQUIRED_FIELD_VALIDATION_MSG);

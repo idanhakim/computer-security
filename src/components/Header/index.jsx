@@ -43,6 +43,9 @@ export const Header = () => {
                                     <Link to="/forgot-password">Forgot Password</Link>
                                 </li>
                                 <li>
+                                    <Link to="/reset-password">Reset Password</Link>
+                                </li>
+                                <li>
                                     <Link to="/register">Register</Link>
                                 </li>
                             </>
