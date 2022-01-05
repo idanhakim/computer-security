@@ -11,9 +11,10 @@ export const AddClient = () => {
 
     const handleSubmit = async (values, {setSubmitting}) => {
         const {firstName, lastName, email} = values;
-        const {isAuthenticated, errorMsg} = await addClientAPI(firstName, lastName, email)
+        const {isAuthenticated, errorMsg, msg} = await addClientAPI(firstName, lastName, email)
         setSubmitting(false);
         if (isAuthenticated) {
+            alert(JSON.stringify(msg, null, 2))
             history.push('my-account');
         } else {
             alert(JSON.stringify(errorMsg, null, 2))
