@@ -60,8 +60,6 @@ export const ForgotPassword = () => {
                     </form>
                 )}
             </Formik>
-            }
-
         </div>
     );
 }
