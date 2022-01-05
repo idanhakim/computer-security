@@ -43,7 +43,7 @@ export const forgotPasswordAPI = async (userName) => {
 }
 
 export const changePasswordAPI = async (password, newPassword) => {
-    const res = await apiReq({password, new_password: newPassword}, 'change_pass/')
+    const res = await apiReq({password, new_password: newPassword}, 'menu/change_pass/')
     return !!res.data.Success ? {isAuthenticated: true} : {isAuthenticated: false, errorMsg: res?.data?.Fail ?? 'error'}
 }
 
