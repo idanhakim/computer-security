@@ -9,7 +9,8 @@ const apiReq = async (params, route, method = 'post') => {
         const res = await axios({
             method,
             url: BASE_URL + route,
-            data: params
+            data: params,
+            withCredentials: true
         })
         console.log('res = ', res)
         return res;
