@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {
     useHistory,
     useParams
 } from "react-router-dom";
 
-import {registerAPI, resetPasswordAPI, verifyResetPasswordTokenAPI} from "../../api";
+import {resetPasswordAPI} from "../../api";
 import * as Yup from "yup";
-import {newPasswordSchema} from "../../utils/validationSchemas";
+import {passwordSchema} from "../../utils/validationSchemas";
 import {SubmitButton} from "../../components/SubmitButton";
 import {Formik} from "formik";
 import {VerifyTokenForm} from "./VerifyTokenForm";
@@ -34,7 +34,7 @@ export const ResetPassword = () => {
                 <Formik
                     initialValues={{password: ''}}
                     validationSchema={Yup.object({
-                        password: newPasswordSchema,
+                        password: passwordSchema,
                     })}
                     onSubmit={handleSubmit}
                 >

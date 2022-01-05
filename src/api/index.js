@@ -48,7 +48,7 @@ export const changePasswordAPI = async (password, newPassword) => {
 }
 
 export const addClientAPI = async (firstName, lastName, email) => {
-    const res = await apiReq({email, first_Name: firstName, last_name: firstName}, 'menu/add_customer/')
+    const res = await apiReq({email, first_name: firstName, last_name: firstName}, 'menu/add_customer/')
     return !!res.data.Success ? {isAuthenticated: true} : {isAuthenticated: false, errorMsg: res?.data?.Fail ?? 'error'}
 }
 
