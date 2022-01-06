@@ -1,6 +1,6 @@
 import React from "react";
 import * as Yup from "yup";
-import {emailSchema, nameSchema} from "../../../utils/validationSchemas";
+import {emailSchema, nameSchema, tokenSchema} from "../../../utils/validationSchemas";
 import {Formik} from "formik";
 import {useHistory} from "react-router-dom";
 import {SubmitButton} from "../../../components/SubmitButton";
@@ -26,8 +26,8 @@ export const AddClient = () => {
         <Formik
             initialValues={{firstName: "", lastName: "", email: "",}}
             validationSchema={Yup.object({
-                firstName: nameSchema,
-                lastName: nameSchema,
+                firstName: tokenSchema,
+                lastName: tokenSchema,
                 email: emailSchema,
             })}
             onSubmit={handleSubmit}
